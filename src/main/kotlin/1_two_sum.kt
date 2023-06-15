@@ -39,50 +39,44 @@
  */
 
 fun main(){
-    val solutionLoop = TwoSumSolutionLoop()
-    val solutionMapp = TwoSumSolutionMap()
     val array = intArrayOf(2,7,11,15)
     val target = 9
     println("Answer with the solution loop is:")
-    solutionLoop.twoSum(array, target).forEach {
+    twoSumWithLoop(array, target).forEach {
         println(it)
     }
     println("Answer with the solution map is:")
-    solutionMapp.twoSum(array, target).forEach {
+    twoSumWithMap(array, target).forEach {
         println(it)
     }
 }
 
 /**
- * [TwoSumSolutionLoop] has the Time Complexity of O(n) and Space Complexity of O(n)
+ * [twoSumWithMap] has the Time Complexity of O(n) and Space Complexity of O(n)
  */
-class TwoSumSolutionMap {
-    fun twoSum(nums: IntArray, target: Int): IntArray {
-        val map = mutableMapOf<Int,Int>()
-        nums.forEachIndexed{ index, item ->
-            val diff = target - item
-            if(map.contains(diff)){
-                return intArrayOf(index, map[diff]!!)
-            } else{
-                map[item] = index
-            }
+fun twoSumWithMap(nums: IntArray, target: Int): IntArray {
+    val map = mutableMapOf<Int,Int>()
+    nums.forEachIndexed{ index, item ->
+        val diff = target - item
+        if(map.contains(diff)){
+            return intArrayOf(index, map[diff]!!)
+        } else{
+            map[item] = index
         }
-        return intArrayOf()
     }
+    return intArrayOf()
 }
 
 /**
- * [TwoSumSolutionLoop] has the Time Complexity of O(n^2) and Space Complexity of O(1)
+ * [twoSumWithLoop] has the Time Complexity of O(n^2) and Space Complexity of O(1)
  */
-private class TwoSumSolutionLoop {
-    fun twoSum(nums: IntArray, target: Int): IntArray {
-        nums.forEachIndexed{ index1, item1 ->
-            nums.forEachIndexed{ index2, item2 ->
-                if (index1 != index2 && (item1 + item2 == target)){
-                    return intArrayOf(index1, index2)
-                }
+fun twoSumWithLoop(nums: IntArray, target: Int): IntArray {
+    nums.forEachIndexed{ index1, item1 ->
+        nums.forEachIndexed{ index2, item2 ->
+            if (index1 != index2 && (item1 + item2 == target)){
+                return intArrayOf(index1, index2)
             }
         }
-        return intArrayOf()
     }
+    return intArrayOf()
 }

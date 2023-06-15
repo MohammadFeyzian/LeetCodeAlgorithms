@@ -38,48 +38,45 @@
 fun main() {
 //    val input = "ohvhjdml"
     val input = "abcdefgh"
-    val solution = LongestSubstringWithoutRepeatingCharacters()
-    println("Longest substring length is: ${solution.lengthOfLongestSubstring(input)}")
+    println("Longest substring length is: ${lengthOfLongestSubstring(input)}")
 }
 
-class LongestSubstringWithoutRepeatingCharacters {
-    fun lengthOfLongestSubstring(s: String): Int { //ohvhjdml
+fun lengthOfLongestSubstring(s: String): Int { //ohvhjdml
 
-        val tempSubstrings = mutableListOf<MutableMap<Char, Boolean>>()
-        val finalSubstrings = mutableListOf<MutableMap<Char, Boolean>>()
+    val tempSubstrings = mutableListOf<MutableMap<Char, Boolean>>()
+    val finalSubstrings = mutableListOf<MutableMap<Char, Boolean>>()
 
-        s.forEach { char ->
-            tempSubstrings.add(mutableMapOf())
-            val validSubStrings = mutableListOf<MutableMap<Char,Boolean>>()
-            tempSubstrings.forEach { substring ->
-                if (substring[char] == true) {
-                    validSubStrings.add(substring)
-                } else {
-                    substring[char] = true
-                }
-            }
-
-            validSubStrings.forEach { substring ->
-                finalSubstrings.add(substring)
-                tempSubstrings.remove(substring)
-            }
-            validSubStrings.clear()
-        }
-
-        var longestSubstring = 0
-
+    s.forEach { char ->
+        tempSubstrings.add(mutableMapOf())
+        val validSubStrings = mutableListOf<MutableMap<Char, Boolean>>()
         tempSubstrings.forEach { substring ->
-            if (substring.size > longestSubstring){
-                longestSubstring = substring.size
+            if (substring[char] == true) {
+                validSubStrings.add(substring)
+            } else {
+                substring[char] = true
             }
         }
 
-        finalSubstrings.forEach { substring ->
-            if (substring.size > longestSubstring){
-                longestSubstring = substring.size
-            }
+        validSubStrings.forEach { substring ->
+            finalSubstrings.add(substring)
+            tempSubstrings.remove(substring)
         }
-
-        return longestSubstring
+        validSubStrings.clear()
     }
+
+    var longestSubstring = 0
+
+    tempSubstrings.forEach { substring ->
+        if (substring.size > longestSubstring) {
+            longestSubstring = substring.size
+        }
+    }
+
+    finalSubstrings.forEach { substring ->
+        if (substring.size > longestSubstring) {
+            longestSubstring = substring.size
+        }
+    }
+
+    return longestSubstring
 }

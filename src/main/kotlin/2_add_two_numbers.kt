@@ -43,72 +43,64 @@ fun main() {
         )
     )
 
-    val solution = AddTwoNumbersLinkedListRecursion()
-//    val solution = AddTwoNumbersLinkedListLoop()
-
     println("----> Sum is")
-    println(solution.addTwoNumbers(l1, l2))
+    println(addTwoNumbersLinkedListRecursion(l1, l2))
 }
 
 data class ListNode(
     var value: Int,
     var next: ListNode? = null
 )
+fun addTwoNumbersLinkedListRecursion(l1: ListNode?, l2: ListNode?): ListNode? {
+    val numStr1 = sumRecursion(l1, "")
+    val numStr2 = sumRecursion(l2, "")
 
-class AddTwoNumbersLinkedListRecursion {
-    fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-        val numStr1 = sum(l1, "")
-        val numStr2 = sum(l2, "")
-
-        val sum = numStr1.toBigInteger() + numStr2.toBigInteger()
-        val sumStr = sum.toString()
+    val sum = numStr1.toBigInteger() + numStr2.toBigInteger()
+    val sumStr = sum.toString()
 
 
-        var root: ListNode? = null
+    var root: ListNode? = null
 
-        sumStr.forEach{ char ->
-            val nextItem = root
-            root = ListNode(char.toString().toInt())
-            root?.next = nextItem
-        }
-        return root
+    sumStr.forEach{ char ->
+        val nextItem = root
+        root = ListNode(char.toString().toInt())
+        root?.next = nextItem
     }
-
-    fun sum(li: ListNode?, numStr: String): String{
-        val newStr = "${li!!.value}$numStr"
-        if(li.next == null){
-            return newStr
-        }
-        return sum(li.next, newStr)
-    }
+    return root
 }
 
-class AddTwoNumbersLinkedListLoop {
-    fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-        var numStr1 = ""
-        var numStr2 = ""
-        var currentItem1 = l1
-        while (currentItem1?.value != null) {
-            numStr1 = "${currentItem1.value}$numStr1"
-            currentItem1 = currentItem1.next
-        }
-
-        var currentItem2 = l2
-        while (currentItem2?.value != null) {
-            numStr2 = "${currentItem2.value}$numStr2"
-            currentItem2 = currentItem2.next
-        }
-
-        val sum = numStr1.toBigInteger() + numStr2.toBigInteger()
-        val sumStr = sum.toString()
-
-        var root: ListNode? = null
-
-        sumStr.forEach { char ->
-            val nextItem = root
-            root = ListNode(char.toString().toInt())
-            root?.next = nextItem
-        }
-        return root
+private fun sumRecursion(li: ListNode?, numStr: String): String{
+    val newStr = "${li!!.value}$numStr"
+    if(li.next == null){
+        return newStr
     }
+    return sumRecursion(li.next, newStr)
+}
+
+fun addTwoNumbersLinkedListLoop(l1: ListNode?, l2: ListNode?): ListNode? {
+    var numStr1 = ""
+    var numStr2 = ""
+    var currentItem1 = l1
+    while (currentItem1?.value != null) {
+        numStr1 = "${currentItem1.value}$numStr1"
+        currentItem1 = currentItem1.next
+    }
+
+    var currentItem2 = l2
+    while (currentItem2?.value != null) {
+        numStr2 = "${currentItem2.value}$numStr2"
+        currentItem2 = currentItem2.next
+    }
+
+    val sum = numStr1.toBigInteger() + numStr2.toBigInteger()
+    val sumStr = sum.toString()
+
+    var root: ListNode? = null
+
+    sumStr.forEach { char ->
+        val nextItem = root
+        root = ListNode(char.toString().toInt())
+        root?.next = nextItem
+    }
+    return root
 }
